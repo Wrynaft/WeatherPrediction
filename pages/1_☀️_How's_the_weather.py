@@ -4,8 +4,7 @@ import numpy as np
 
 st.write("# How's the Weather? ☀️")
 
-data = pd.read_csv("C:/Users/Ryan Chin/Documents/UM CS/WIE2003 Introduction to Data Science/Assignment/DataApp/actual_cleaned_dataset.csv")
-
+data = pd.read_csv(r"C:\Users\USER\Documents\GitHub\WeatherPrediction\actual_cleaned_dataset.csv")
 data_temp = data[['datetime', 'temp']]
 year = st.selectbox(
     'Year',

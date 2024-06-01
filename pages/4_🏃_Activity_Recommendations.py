@@ -12,12 +12,12 @@ activity = st.selectbox(
     ('Sports 🏃', 'BBQ 🍖', 'Drying clothes 👕', 'Indoor activities 🎮', 'Picnic 🧺')
 )
 
-future_df = pd.read_csv('weather_forecast.csv', parse_dates=True, index_col=0)
+future_df = pd.read_csv('weather_forecast.csv', parse_dates=True, index_col=0).head(10)
 
 if (activity=='Sports 🏃'):
     st.write("#### Ideal days for sports:")
-    data = future_df.loc[future_df['predicted_precip']==0]
-    data.sort_values(by=['uvindex', 'temp', 'humidity'], inplace=True, ascending=[True, True, True])
+    data = future_df.copy(deep=True)
+    data.sort_values(by=['predicted_precip','uvindex', 'temp', 'humidity'], inplace=True, ascending=[True, True, True, True])
     for day in data.head().index:
         with st.container(border=True):
             st.write("#### "+str(day.to_pydatetime().date()))
@@ -36,8 +36,8 @@ if (activity=='Sports 🏃'):
                 st.write("{:.2f}".format(data['humidity'][day]))
 elif (activity=='BBQ 🍖'):
     st.write("#### Ideal days for BBQ:")
-    data = future_df.loc[future_df['predicted_precip']==0]
-    data.sort_values(by=['humidity', 'temp', 'windspeed'], inplace=True, ascending=[False, False, False])
+    data = future_df.copy(deep=True)
+    data.sort_values(by=['predicted_precip','humidity', 'temp', 'windspeed'], inplace=True, ascending=[True, False, False, False])
     for day in data.head().index:
         with st.container(border=True):
             st.write("#### "+str(day.to_pydatetime().date()))
@@ -57,8 +57,8 @@ elif (activity=='BBQ 🍖'):
 
 elif (activity=='Drying clothes 👕'):
     st.write("#### Ideal days for drying clothes:")
-    data = future_df.loc[future_df['predicted_precip']==0]
-    data.sort_values(by=['humidity', 'temp', 'windspeed', 'uvindex'], inplace=True, ascending=[True, False, False, False])
+    data = future_df.copy(deep=True)
+    data.sort_values(by=['predicted_precip', 'humidity', 'temp', 'windspeed', 'uvindex'], inplace=True, ascending=[True, True, False, False, False])
     for day in data.head().index:
         with st.container(border=True):
             st.write("#### "+str(day.to_pydatetime().date()))
@@ -80,8 +80,8 @@ elif (activity=='Drying clothes 👕'):
                 st.write("{:.2f}".format(data['uvindex'][day]))
 elif (activity=='Picnic 🧺'):
     st.write("#### Ideal days for a picnic:")
-    data = future_df.loc[future_df['predicted_precip']==0]
-    data.sort_values(by=['temp', 'windspeed'], inplace=True, ascending=[True, False])
+    data = future_df.copy(deep=True)
+    data.sort_values(by=['predicted_precip','temp', 'windspeed'], inplace=True, ascending=[True, True, False])
     for day in data.head().index:
         with st.container(border=True):
             st.write("#### "+str(day.to_pydatetime().date()))

@@ -10,7 +10,7 @@ st.write("""
          """)
 
 # Read CSV file
-data = pd.read_csv("actual_cleaned_dataset.csv", parse_dates=["datetime"])
+data = pd.read_csv("./actual_cleaned_dataset.csv", parse_dates=["datetime"])
 
 # Create date input widgets
 st.subheader("Select date range and features")

@@ -15,7 +15,7 @@ col1, col2 = logo_title_container.columns([1, 3])
 
 # Add the logo image in the first column
 with col1:
-    image = Image.open("Raindar.jpeg")
+    image = Image.open("Photos/Raindar.jpeg")
     st.image(image, width=190)
 
 # Add the title in the second column

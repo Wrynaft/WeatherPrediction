@@ -20,12 +20,15 @@ with col1:
 
 # Add the title in the second column
 with col2:
-    st.markdown("""
+    st.markdown(
+        """
         <div style="display: flex; align-items: center; justify-content: center; height: 100%; text-align: center; font-size: 42px; font-weight: bold; color: #FFFFFF;">
             Weather Prediction<br>in Kuala Lumpur, Malaysia 🌧️
         </div>
-    """, unsafe_allow_html=True)
-    
+    """,
+        unsafe_allow_html=True,
+    )
+
 # Reset the layout to a single column for the remaining content
 st.container()
 
@@ -53,4 +56,4 @@ st.markdown(
     3. Analyse historical weather data and forecast rainfall patterns
 
 """
-) 
+)

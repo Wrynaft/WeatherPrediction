@@ -1,14 +1,18 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+import joblib as joblib
 import sklearn
 
 st.title("Weather Simulation 🛰️")
-st.write("Simulate your own weather data, and we can predict how intense it will rain! (If it rains)")
-st.write("""
-         ***
-         """)
+st.write(
+    "Simulate your own weather data, and we can predict how intense it will rain! (If it rains)"
+)
+st.write(
+    """
+        ***
+        """
+)
 
 st.subheader("Previous days precipitation")
 col1, col2, col3, col4 = st.columns(4)
@@ -44,10 +48,14 @@ with col3:
     precipcover = st.number_input("Precip Cover (%)", min_value=0.0, max_value=100.0)
 with col4:
     windgust = st.number_input("Wind Gust", value=20.0)
-    cloudcover = st.number_input("Cloud Cover (%)", min_value=0.0, max_value=100.0, value=90.0)
+    cloudcover = st.number_input(
+        "Cloud Cover (%)", min_value=0.0, max_value=100.0, value=90.0
+    )
 with col5:
     windspeed = st.number_input("Wind Speed", value=10.0)
-    humidity = st.number_input("Humidity (%)", min_value=0.0, max_value=100.0, value=80.0)
+    humidity = st.number_input(
+        "Humidity (%)", min_value=0.0, max_value=100.0, value=80.0
+    )
 
 col1, col2 = st.columns(2)
 with col1:
@@ -56,39 +64,50 @@ with col2:
     uv = st.slider("UV index", 0, 10)
 
 if st.button("Predict"):
-    df = pd.DataFrame({
-        'temp': temp,
-        'feelslike': feelslike,
-        'dew': dew,
-        'humidity': humidity,
-        'precipcover': precipcover,
-        'windgust': windgust,
-        'windspeed': windspeed,
-        'winddir': winddir,
-        'sealevelpressure': sealvlpressure,
-        'cloudcover': cloudcover,
-        'visibility': visibility,
-        'uvindex': uv,
-        'precip_lag_1': np.log1p(precip7),
-        'precip_lag_2': np.log1p(precip6),
-        'precip_lag_3': np.log1p(precip5),
-        'precip_lag_4': np.log1p(precip4),
-        'precip_lag_5': np.log1p(precip3),
-        'precip_lag_6': np.log1p(precip2),
-        'precip_lag_7': np.log1p(precip1),
-        'rolling_mean_7': np.mean(np.log1p([precip1, precip2, precip3, precip4, precip5, precip6, precip7])),
-        'rolling_std_7': np.std(np.log1p([precip1, precip2, precip3, precip4, precip5, precip6, precip7])) 
-    }, index=[0])
+    df = pd.DataFrame(
+        {
+            "temp": temp,
+            "feelslike": feelslike,
+            "dew": dew,
+            "humidity": humidity,
+            "precipcover": precipcover,
+            "windgust": windgust,
+            "windspeed": windspeed,
+            "winddir": winddir,
+            "sealevelpressure": sealvlpressure,
+            "cloudcover": cloudcover,
+            "visibility": visibility,
+            "uvindex": uv,
+            "precip_lag_1": np.log1p(precip7),
+            "precip_lag_2": np.log1p(precip6),
+            "precip_lag_3": np.log1p(precip5),
+            "precip_lag_4": np.log1p(precip4),
+            "precip_lag_5": np.log1p(precip3),
+            "precip_lag_6": np.log1p(precip2),
+            "precip_lag_7": np.log1p(precip1),
+            "rolling_mean_7": np.mean(
+                np.log1p(
+                    [precip1, precip2, precip3, precip4, precip5, precip6, precip7]
+                )
+            ),
+            "rolling_std_7": np.std(
+                np.log1p(
+                    [precip1, precip2, precip3, precip4, precip5, precip6, precip7]
+                )
+            ),
+        },
+        index=[0],
+    )
 
-    scaler = joblib.load('./scaler.save')
+    scaler = joblib.load("./scaler.save")
     df_scaled = scaler.transform(df)
 
-    model = joblib.load('./best_rid_reg.pkl')
+    model = joblib.load("./best_rid_reg.pkl")
     prediction = model.predict(df_scaled)
 
     result = np.expm1(prediction)
 
-    if (result<0):
+    if result < 0:
         st.write("## There is no rain for the day.")
     else:
         st.write("## Rain with " + "{:.2f}".format(result[0]) + "mm")

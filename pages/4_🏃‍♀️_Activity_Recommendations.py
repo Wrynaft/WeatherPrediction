@@ -3,7 +3,13 @@ import pandas as pd
 
 st.title("Activity Recommendations 🏃")
 st.write(
-    "Take a look at which are the ideal days for this activity! (In the next 30 days)"
+    "Take a look at which are the ideal days for this activity! (In the next 10 days)"
+)
+st.write(
+    "If you have a different activity other than the ones listed, do try picking a similar activity. The activities listed cover diverse enough attribute prioritisation to fit most scenarios!"
+)
+st.write(
+    "Note: The recommended days are ranked from most ideal at the top, at shows the top 5 best days."
 )
 st.write(
     """

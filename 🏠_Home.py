@@ -51,9 +51,9 @@ st.markdown(
     
     ### Project Objectives
 
-    1. Raise public awareness and understanding of weather forecasting
-    2. Encourage decision-making and weather-related event preparedness
-    3. Analyse historical weather data and forecast rainfall patterns
+    1. Identify the features that influence the weather condition in Kuala Lumpur.
+    2. Analyse historical weather data and forecast rainfall patterns for Kuala Lumpur.
+    3. Develop a comprehensive data product featuring a weather prediction model that accurately forecasts the weather in Kuala Lumpur.
 
 """
 )

@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from PIL import Image
 
 future_df = pd.read_csv("weather_forecast.csv", parse_dates=True, index_col=0)
